@@ -1,69 +1,75 @@
+import requests
 import pandas as pd
-import json
-
-# -----------------------------
-# LOAD CSV
-# -----------------------------
-df = pd.read_csv("curtailment_master.csv")
-
-# -----------------------------
-# FORMAT DATES
-# -----------------------------
-df["report_date"] = pd.to_datetime(df["report_date"])
-
-df = df.sort_values("report_date")
-
-dates = df["report_date"].dt.strftime("%d-%b").tolist()
-
-solar = df["solar_mu"].tolist()
-
-wind = df["wind_mu"].tolist()
-
-total = df["total_mu"].tolist()
-
-# -----------------------------
-# BUILD JS
-# -----------------------------
-js_code = f"""
-const dates = {json.dumps(dates)};
-const solar = {json.dumps(solar)};
-const wind = {json.dumps(wind)};
-const total = {json.dumps(total)};
-"""
-
-# -----------------------------
-# LOAD HTML
-# -----------------------------
-with open("index.html", "r", encoding="utf-8") as f:
-    html = f.read()
-
-# -----------------------------
-# REPLACE EXISTING JS ARRAYS
-# -----------------------------
+import pdfplumber
 import re
+import os
+import glob
+from bs4 import BeautifulSoup
+from datetime import datetime
+import urllib3
 
-html = re.sub(
-    r'const dates = .*?;',
-    f'const dates = {json.dumps(dates)};',
-    html
-)
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-html = re.sub(
-    r'const solar = .*?;',
-    f'const solar = {json.dumps(solar)};',
-    html
-)
+os.makedirs("vre_reports", exist_ok=True)
 
-html = re.sub(
-    r'const wind  = .*?;',
-    f'const wind  = {json.dumps(wind)};',
-    html
-)
+BASE_URL = "https://grid-india.in/en/reports/daily-vre-report"
+
+headers = {
+    "User-Agent": "Mozilla/5.0"
+}
+
+print("Fetching GRID-INDIA page...")
+
+html = requests.get(BASE_URL, headers=headers, verify=False).text
+
+pdf_links = re.findall(r'https://grid-india\.in/sites/default/files/inline-files/.*?\.pdf', html)
+
+if len(pdf_links) == 0:
+    raise Exception("No PDF links found")
+
+latest_pdf = pdf_links[0]
+
+pdf_name = latest_pdf.split("/")[-1]
+
+pdf_path = f"vre_reports/{pdf_name}"
+
+print(f"Latest PDF found:\n{latest_pdf}")
 
 # -----------------------------
-# SAVE UPDATED HTML
+# DOWNLOAD IF NOT EXISTS
 # -----------------------------
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html)
+if not os.path.exists(pdf_path):
 
-print("\nDashboard Updated Successfully")
+    print("Downloading latest PDF...")
+
+    pdf_data = requests.get(latest_pdf, headers=headers, verify=False).content
+
+    with open(pdf_path, "wb") as f:
+        f.write(pdf_data)
+
+    print("PDF Downloaded")
+
+else:
+    print("PDF already exists")
+
+# -----------------------------
+# PROCESS ALL PDFs
+# -----------------------------
+all_data = []
+
+pdf_files = glob.glob("vre_reports/*.pdf")
+
+print(f"\nTOTAL PDFs FOUND: {len(pdf_files)}")
+
+for pdf_file in pdf_files:
+
+    try:
+
+        report_date = ""
+        wind_mw = 0
+        wind_mu = 0
+        solar_mw = 0
+        solar_mu = 0
+
+        with pdfplumber.open(pdf_file) as pdf:
+print("\nMASTER CSV UPDATED")
