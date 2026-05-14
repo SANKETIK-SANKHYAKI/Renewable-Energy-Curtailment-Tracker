@@ -1,2 +1,2 @@
-report_date,wind_mw,wind_mu,solar_mw,solar_mu,total_mu
-2026-05-12,147.0,0.41,1424.0,2.62,3.03
+report_date,wind_mw,wind_mu,solar_mw,solar_mu,total_mu,vre_pct,max_demand_mw,solar_share_pct,wind_share_pct,reason_1,reason_2,station_1,station_2
+2026-05-12,147.0,2.22,1424.0,2.5.77,9.99,25.24,247881,86.5,13.5,765kV Aligarh-Sikar2 outage,Bikaner-Gajner overload,Ramgarh (Rajasthan),Bhadla 3 (Rajasthan)

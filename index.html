@@ -5,365 +5,540 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>India RE Curtailment Tracker</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    :root {
-      --navy: #0f2744;
-      --blue: #2563eb;
-      --solar: #f59e0b;
-      --wind: #10b981;
-      --purple: #8b5cf6;
-      --red: #ef4444;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --border: #e2e8f0;
-      --text: #0f172a;
-      --text-2: #64748b;
-      --text-3: #94a3b8;
+    :root{
+      --navy:#0f2744; --blue:#2563eb; --solar:#f59e0b; --wind:#10b981;
+      --purple:#8b5cf6; --red:#ef4444; --bg:#f8fafc; --card:#fff;
+      --border:#e2e8f0; --text:#0f172a; --t2:#64748b; --t3:#94a3b8;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
 
-    .header {
-      background: var(--navy);
-      background-image: radial-gradient(ellipse at 80% 50%, rgba(37,99,235,0.25) 0%, transparent 60%);
-      padding: 0 36px; display: flex; align-items: center; justify-content: space-between; height: 64px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+    /* ── Header ── */
+    .header{background:var(--navy);padding:0 32px;display:flex;align-items:center;
+      justify-content:space-between;height:60px;border-bottom:1px solid rgba(255,255,255,.07)}
+    .hl{display:flex;align-items:center;gap:12px}
+    .logo{width:36px;height:36px;border-radius:9px;
+      background:linear-gradient(135deg,#f59e0b,#10b981);
+      display:flex;align-items:center;justify-content:center;font-size:18px}
+    .h-title{color:#fff;font-size:16px;font-weight:600}
+    .h-sub{color:rgba(255,255,255,.4);font-size:11px;margin-top:1px}
+    .live-pill{display:flex;align-items:center;gap:6px;
+      background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);
+      color:#34d399;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .date-b{color:rgba(255,255,255,.45);font-size:12px;font-family:'DM Mono',monospace}
+
+    /* ── Alert banner ── */
+    .alert{background:linear-gradient(90deg,#fffbeb,#fff7ed);
+      border-bottom:1px solid #fde68a;padding:10px 32px;font-size:13px;
+      color:#92400e;display:flex;align-items:center;gap:10px}
+    .alert strong{color:#b45309}
+
+    /* ── Stats bar ── */
+    .stats-bar{background:var(--navy);display:grid;grid-template-columns:repeat(4,1fr)}
+    .stat-item{padding:14px 24px;border-right:1px solid rgba(255,255,255,.08)}
+    .stat-item:last-child{border-right:none}
+    .stat-label{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;
+      letter-spacing:1px;margin-bottom:4px}
+    .stat-val{font-size:20px;font-weight:700;color:#fff}
+    .stat-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px}
+
+    /* ── Page container ── */
+    .page{padding:24px 32px;max-width:1440px;margin:0 auto}
+    .sec-label{font-size:10px;font-weight:700;color:var(--t3);
+      text-transform:uppercase;letter-spacing:1.5px;margin:24px 0 12px}
+
+    /* ── Metric cards ── */
+    .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+    .mcard{background:var(--card);border:1px solid var(--border);border-radius:16px;
+      padding:18px 20px;position:relative;overflow:hidden;
+      transition:transform .2s,box-shadow .2s}
+    .mcard:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    .mbar{position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+    .micon{width:34px;height:34px;border-radius:9px;
+      display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px}
+    .mlbl{font-size:10px;color:var(--t3);font-weight:500;
+      text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .mval{font-size:26px;font-weight:700;letter-spacing:-1px;line-height:1}
+    .munit{font-size:12px;font-weight:500;color:var(--t3);margin-left:2px}
+    .msub{font-size:11px;color:var(--t3);margin-top:5px}
+
+    .m-red  .mbar{background:linear-gradient(90deg,#ef4444,#f97316)}
+    .m-red  .micon{background:#fef2f2} .m-red  .mval{color:#dc2626}
+    .m-amb  .mbar{background:linear-gradient(90deg,#f59e0b,#fcd34d)}
+    .m-amb  .micon{background:#fffbeb} .m-amb  .mval{color:#d97706}
+    .m-grn  .mbar{background:linear-gradient(90deg,#10b981,#34d399)}
+    .m-grn  .micon{background:#ecfdf5} .m-grn  .mval{color:#059669}
+    .m-pur  .mbar{background:linear-gradient(90deg,#8b5cf6,#a78bfa)}
+    .m-pur  .micon{background:#f5f3ff} .m-pur  .mval{color:#7c3aed}
+    .m-blu  .mbar{background:linear-gradient(90deg,#2563eb,#60a5fa)}
+    .m-blu  .micon{background:#eff6ff} .m-blu  .mval{color:#1d4ed8}
+
+    /* ── Charts grid ── */
+    .charts-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
+    .ccard{background:var(--card);border:1px solid var(--border);
+      border-radius:16px;padding:20px 22px}
+    .ctitle{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+    .csub{font-size:11px;color:var(--t3);margin-bottom:14px}
+
+    /* ── Info cards ── */
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .icard{background:var(--card);border:1px solid var(--border);
+      border-radius:16px;padding:18px 20px}
+    .ititle{font-size:11px;font-weight:700;color:var(--t3);
+      text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;
+      padding-bottom:8px;border-bottom:1px solid var(--border)}
+    .irow{display:flex;justify-content:space-between;align-items:center;
+      padding:7px 0;border-bottom:1px solid #f8fafc}
+    .irow:last-child{border:none}
+    .ik{font-size:12px;color:var(--t2)}
+    .iv{font-size:12px;font-weight:600;color:var(--text);font-family:'DM Mono',monospace}
+    .badge{display:inline-flex;font-size:10px;font-weight:600;
+      padding:2px 8px;border-radius:20px}
+    .b-solar{background:#fffbeb;color:#d97706;border:1px solid #fde68a}
+    .b-wind {background:#ecfdf5;color:#059669;border:1px solid #a7f3d0}
+    .b-blue {background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe}
+
+    /* ── Two-col ── */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+    /* ── Reasons ── */
+    .bigcard{background:var(--card);border:1px solid var(--border);
+      border-radius:16px;padding:20px 22px}
+    .bigtitle{font-size:11px;font-weight:700;color:var(--t3);
+      text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;
+      padding-bottom:8px;border-bottom:1px solid var(--border)}
+    .reasons-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .reason-card{background:#f8fafc;border:1px solid var(--border);
+      border-radius:10px;padding:12px 14px}
+    .rc-station{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px}
+    .rc-reason{font-size:12px;color:var(--t2);line-height:1.5;margin-bottom:6px}
+    .rc-vals{display:flex;gap:8px;flex-wrap:wrap}
+    .rv{font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px}
+    .rv.wind{background:#ecfdf5;color:#059669}
+    .rv.solar{background:#fffbeb;color:#d97706}
+
+    /* ── History table ── */
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th{background:#f1f5f9;color:var(--t2);font-weight:600;
+      text-align:left;padding:8px 12px;border-bottom:2px solid var(--border);
+      font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+    td{padding:8px 12px;border-bottom:1px solid #f1f5f9;
+      font-family:'DM Mono',monospace}
+    tr:hover td{background:#f8fafc}
+    .row-high td{border-left:3px solid #ef4444}
+    .row-med  td{border-left:3px solid #f59e0b}
+    .row-low  td{border-left:3px solid #10b981}
+
+    /* ── Footer ── */
+    .footer{background:var(--navy);color:rgba(255,255,255,.4);
+      text-align:center;padding:14px 32px;font-size:12px;
+      display:flex;align-items:center;justify-content:center;
+      gap:16px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.07)}
+    .footer a{color:rgba(255,255,255,.55);text-decoration:none}
+    .footer a:hover{color:#fff}
+
+    /* ── Responsive ── */
+    @media(max-width:1100px){
+      .metrics{grid-template-columns:repeat(3,1fr)}
+      .charts-grid,.info-grid,.two-col{grid-template-columns:1fr}
+      .reasons-wrap{grid-template-columns:1fr}
+      .stats-bar{grid-template-columns:repeat(2,1fr)}
     }
-    .header-left { display: flex; align-items: center; gap: 14px; }
-    .header-logo { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg,#f59e0b,#10b981); display: flex; align-items: center; justify-content: center; font-size: 18px; }
-    .header-title { color: white; font-size: 17px; font-weight: 600; letter-spacing: -0.3px; }
-    .header-sub { color: rgba(255,255,255,0.45); font-size: 12px; margin-top: 1px; }
-    .header-right { display: flex; align-items: center; gap: 16px; }
-    .live-pill { display: flex; align-items: center; gap: 6px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); color: #34d399; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #34d399; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .date-badge { color: rgba(255,255,255,0.5); font-size: 12px; font-family: 'DM Mono', monospace; }
-
-    .alert { background: linear-gradient(90deg,#fffbeb,#fff7ed); border-bottom: 1px solid #fde68a; padding: 10px 36px; font-size: 13px; color: #92400e; display: flex; align-items: center; gap: 10px; }
-    .alert strong { color: #b45309; }
-
-    .page { padding: 28px 36px; max-width: 1400px; margin: 0 auto; }
-    .section-label { font-size: 10px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
-
-    .metrics { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px; margin-bottom: 28px; }
-    .mcard { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-    .mcard:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-    .mcard-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 16px 16px 0 0; }
-    .mcard-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 14px; }
-    .mcard-label { font-size: 11px; color: var(--text-3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .mcard-value { font-size: 30px; font-weight: 700; letter-spacing: -1px; line-height: 1; }
-    .mcard-unit { font-size: 14px; font-weight: 500; color: var(--text-3); margin-left: 3px; }
-    .mcard-sub { font-size: 12px; color: var(--text-3); margin-top: 6px; }
-    .m-total .mcard-accent { background: linear-gradient(90deg,#ef4444,#f97316); }
-    .m-total .mcard-icon { background: #fef2f2; }
-    .m-total .mcard-value { color: #dc2626; }
-    .m-solar .mcard-accent { background: linear-gradient(90deg,#f59e0b,#fcd34d); }
-    .m-solar .mcard-icon { background: #fffbeb; }
-    .m-solar .mcard-value { color: #d97706; }
-    .m-wind .mcard-accent { background: linear-gradient(90deg,#10b981,#34d399); }
-    .m-wind .mcard-icon { background: #ecfdf5; }
-    .m-wind .mcard-value { color: #059669; }
-    .m-vre .mcard-accent { background: linear-gradient(90deg,#8b5cf6,#a78bfa); }
-    .m-vre .mcard-icon { background: #f5f3ff; }
-    .m-vre .mcard-value { color: #7c3aed; }
-    .m-demand .mcard-accent { background: linear-gradient(90deg,#2563eb,#60a5fa); }
-    .m-demand .mcard-icon { background: #eff6ff; }
-    .m-demand .mcard-value { color: #1d4ed8; }
-
-    .charts-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-    .ccard { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; }
-    .ccard-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-    .ccard-sub { font-size: 12px; color: var(--text-3); margin-bottom: 18px; }
-
-    .info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 20px; }
-    .icard { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; }
-    .icard-title { font-size: 11px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-    .irow { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f8fafc; }
-    .irow:last-child { border: none; }
-    .irow-key { font-size: 13px; color: var(--text-2); }
-    .irow-val { font-size: 13px; font-weight: 600; color: var(--text); font-family: 'DM Mono', monospace; }
-    .badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; font-family: 'DM Sans', sans-serif; }
-    .badge-solar { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
-    .badge-wind { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-    .badge-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-
-    .big-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; margin-bottom: 20px; }
-    .big-card-title { font-size: 11px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-
-    .region-bar { margin-bottom: 12px; }
-    .region-bar-top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
-    .region-name { color: var(--text-2); font-weight: 500; }
-    .region-val { color: var(--text); font-weight: 600; font-family: 'DM Mono', monospace; }
-    .region-track { height: 7px; background: #f1f5f9; border-radius: 99px; overflow: hidden; }
-    .region-fill { height: 100%; border-radius: 99px; transition: width 1s ease; }
-
-    .reasons-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-    .reason-item { display: flex; align-items: flex-start; gap: 10px; background: #f8fafc; border-radius: 10px; padding: 12px 14px; border: 1px solid var(--border); }
-    .reason-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-    .reason-dot.red { background: #ef4444; box-shadow: 0 0 6px rgba(239,68,68,0.4); }
-    .reason-dot.green { background: #10b981; box-shadow: 0 0 6px rgba(16,185,129,0.4); }
-    .reason-text { font-size: 13px; color: var(--text-2); line-height: 1.5; }
-    .reason-region { font-size: 11px; font-weight: 600; color: var(--text-3); margin-top: 3px; }
-
-    .stations-list { display: flex; flex-direction: column; gap: 8px; }
-    .station-item { display: flex; justify-content: space-between; font-size: 13px; padding: 9px 13px; border-radius: 9px; border: 1px solid; }
-    .station-bad { background: #fef2f2; border-color: #fecaca; }
-    .station-bad .s-name { color: #991b1b; font-weight: 500; }
-    .station-bad .s-type { color: #dc2626; font-family: 'DM Mono', monospace; font-size: 12px; }
-    .station-good { background: #ecfdf5; border-color: #a7f3d0; }
-    .station-good .s-name { color: #065f46; font-weight: 500; }
-    .station-good .s-type { color: #059669; font-family: 'DM Mono', monospace; font-size: 12px; }
-
-    .footer { background: var(--navy); color: rgba(255,255,255,0.4); text-align: center; padding: 18px 36px; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
-    .footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
-    .footer a:hover { color: white; }
-    .footer-sep { opacity: 0.3; }
-
-    @media(max-width:1100px) {
-      .metrics { grid-template-columns: repeat(3,1fr); }
-      .charts-grid, .info-grid, .reasons-grid { grid-template-columns: 1fr; }
+    @media(max-width:600px){
+      .metrics{grid-template-columns:repeat(2,1fr)}
+      .stats-bar{grid-template-columns:1fr}
+      .header{flex-direction:column;height:auto;padding:12px 16px;gap:8px}
+      .page{padding:16px}
     }
   </style>
 </head>
 <body>
 
+<!-- ── Header ── -->
 <div class="header">
-  <div class="header-left">
-    <div class="header-logo">🌱</div>
+  <div class="hl">
+    <div class="logo">🌱</div>
     <div>
-      <div class="header-title">India RE Curtailment Tracker</div>
-      <div class="header-sub">NLDC-REMC Daily VRE Report · Grid India</div>
+      <div class="h-title">India RE Curtailment Tracker</div>
+      <div class="h-sub">NLDC-REMC Daily VRE Report · Grid India</div>
     </div>
   </div>
-  <div class="header-right">
-    <span class="date-badge">Report: 12-May-2026</span>
-    <div class="live-pill"><span class="live-dot"></span>LIVE DATA</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="date-b">Latest: 13-May-26</span>
+    <div class="live-pill"><span class="live-dot"></span>AUTO-UPDATED</div>
   </div>
 </div>
 
+<!-- ── Alert banner ── -->
 <div class="alert">
-  ⚡ <span><strong>12-May-2026:</strong> India curtailed <strong>3.03 MU</strong> of renewable energy today — Solar 2.62 MU (86%) + Wind 0.41 MU (14%). VRE met <strong>25.9%</strong> of all-India demand. Primary reason: 765kV Aligarh-Sikar2 outage.</span>
+  ⚡&nbsp;
+  <span>
+    <strong>13-May-26:</strong>
+    Total curtailment <strong>8.31 MU</strong> —
+    Solar 5.92 MU (71%) + Wind 2.39 MU (29%).
+    VRE met <strong>22.34%</strong> of demand
+    (Solar 17.48% + Wind 4.86%).
+  </span>
+</div>
+
+<!-- ── Stats bar ── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-label">Tracking Period</div>
+    <div class="stat-val">10 Days</div>
+    <div class="stat-sub">04-May-26 → 13-May-26</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Total Energy Lost</div>
+    <div class="stat-val">39.12 MU</div>
+    <div class="stat-sub">Cumulative curtailment</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Daily Average</div>
+    <div class="stat-val">3.91 MU</div>
+    <div class="stat-sub">Per day average</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Highest Day</div>
+    <div class="stat-val">8.46 MU</div>
+    <div class="stat-sub">10-May-26</div>
+  </div>
 </div>
 
 <div class="page">
 
-  <div class="section-label">Today at a Glance</div>
+  <!-- ── Today's curtailment metrics ── -->
+  <div class="sec-label">Today's Curtailment — 13-May-26</div>
   <div class="metrics">
-    <div class="mcard m-total">
-      <div class="mcard-accent"></div>
-      <div class="mcard-icon">⚡</div>
-      <div class="mcard-label">Total Curtailed</div>
-      <div class="mcard-value">3.03<span class="mcard-unit">MU</span></div>
-      <div class="mcard-sub">Wind + Solar combined</div>
+    <div class="mcard m-red"><div class="mbar"></div>
+      <div class="micon">⚡</div>
+      <div class="mlbl">Total Curtailed</div>
+      <div class="mval">8.31<span class="munit">MU</span></div>
+      <div class="msub">Wind + Solar combined</div>
     </div>
-    <div class="mcard m-solar">
-      <div class="mcard-accent"></div>
-      <div class="mcard-icon">☀️</div>
-      <div class="mcard-label">Solar Curtailed</div>
-      <div class="mcard-value">2.62<span class="mcard-unit">MU</span></div>
-      <div class="mcard-sub">1,424 MW peak · 86% of total</div>
+    <div class="mcard m-amb"><div class="mbar"></div>
+      <div class="micon">☀️</div>
+      <div class="mlbl">Solar Curtailed</div>
+      <div class="mval">5.92<span class="munit">MU</span></div>
+      <div class="msub">2,278 MW peak · 71% share</div>
     </div>
-    <div class="mcard m-wind">
-      <div class="mcard-accent"></div>
-      <div class="mcard-icon">💨</div>
-      <div class="mcard-label">Wind Curtailed</div>
-      <div class="mcard-value">0.41<span class="mcard-unit">MU</span></div>
-      <div class="mcard-sub">147 MW peak · 14% of total</div>
+    <div class="mcard m-grn"><div class="mbar"></div>
+      <div class="micon">💨</div>
+      <div class="mlbl">Wind Curtailed</div>
+      <div class="mval">2.39<span class="munit">MU</span></div>
+      <div class="msub">989 MW peak · 29% share</div>
     </div>
-    <div class="mcard m-vre">
-      <div class="mcard-accent"></div>
-      <div class="mcard-icon">📊</div>
-      <div class="mcard-label">VRE Penetration</div>
-      <div class="mcard-value">25.9<span class="mcard-unit">%</span></div>
-      <div class="mcard-sub">Of all-India demand met</div>
+    <div class="mcard m-pur"><div class="mbar"></div>
+      <div class="micon">⚠️</div>
+      <div class="mlbl">TRAS Down (Sec 9)</div>
+      <div class="mval">0.00<span class="munit">MU</span></div>
+      <div class="msub">Emergency TRAS curtailment</div>
     </div>
-    <div class="mcard m-demand">
-      <div class="mcard-accent"></div>
-      <div class="mcard-icon">🏭</div>
-      <div class="mcard-label">Max Demand</div>
-      <div class="mcard-value">247.9<span class="mcard-unit">GW</span></div>
-      <div class="mcard-sub">247,881 MW all-India</div>
+    <div class="mcard m-blu"><div class="mbar"></div>
+      <div class="micon">🏭</div>
+      <div class="mlbl">Peak Demand</div>
+      <div class="mval">247.7<span class="munit">GW</span></div>
+      <div class="msub">247,680 MW · Solar hours</div>
     </div>
   </div>
 
-  <div class="section-label">Trends & Analysis</div>
+  <!-- ── Trend charts ── -->
+  <div class="sec-label">Trends — 10 Days</div>
   <div class="charts-grid">
     <div class="ccard">
-      <div class="ccard-title">Daily Curtailment Trend (MU)</div>
-      <div class="ccard-sub">Solar + Wind stacked — grows automatically as more days are added</div>
-      <canvas id="trendChart" height="140"></canvas>
+      <div class="ctitle">Daily Curtailment — Solar + Wind Stacked (MU)</div>
+      <div class="csub">Drops to zero = no curtailment that day</div>
+      <canvas id="trendChart" height="110"></canvas>
     </div>
     <div class="ccard">
-      <div class="ccard-title">Solar vs Wind Split</div>
-      <div class="ccard-sub">Today's curtailment breakdown</div>
-      <canvas id="splitChart" height="140"></canvas>
+      <div class="ctitle">Today's Solar vs Wind Split</div>
+      <div class="csub">Share of 8.31 MU curtailed</div>
+      <canvas id="splitChart" height="110"></canvas>
     </div>
     <div class="ccard">
-      <div class="ccard-title">VRE Penetration %</div>
-      <div class="ccard-sub">Renewable share of India's demand</div>
-      <canvas id="vreChart" height="140"></canvas>
+      <div class="ctitle">VRE Penetration % Trend</div>
+      <div class="csub">Daily renewable share of demand met</div>
+      <canvas id="vreChart" height="110"></canvas>
     </div>
   </div>
 
-  <div class="section-label">Detailed Breakdown</div>
+  <!-- ── VRE generation insights ── -->
+  <div class="sec-label">VRE Generation Insights (Page 1 Data)</div>
   <div class="info-grid">
     <div class="icard">
-      <div class="icard-title">☀️ Solar Curtailment</div>
-      <div class="irow"><span class="irow-key">Energy Curtailed</span><span class="irow-val">2.62 MU</span></div>
-      <div class="irow"><span class="irow-key">Peak Curtailment</span><span class="irow-val">1,424 MW</span></div>
-      <div class="irow"><span class="irow-key">Share of total</span><span class="irow-val">86.5%</span></div>
-      <div class="irow"><span class="irow-key">Max Solar Generation</span><span class="irow-val">81,220 MW</span></div>
-      <div class="irow"><span class="irow-key">Category</span><span class="irow-val"><span class="badge badge-solar">Ground Mounted</span></span></div>
+      <div class="ititle">☀️ Solar in Demand Mix</div>
+      <div class="irow"><span class="ik">Contribution to Demand</span><span class="iv">43,294 MW</span></div>
+      <div class="irow"><span class="ik">Solar Penetration %</span><span class="iv">17.48%</span></div>
+      <div class="irow"><span class="ik">Max Solar Generation</span><span class="iv">79,178 MW</span></div>
+      <div class="irow"><span class="ik">Max Solar Penetration</span><span class="iv">33.56%</span></div>
+      <div class="irow"><span class="ik">Type</span><span class="iv"><span class="badge b-solar">Ground Mounted</span></span></div>
     </div>
     <div class="icard">
-      <div class="icard-title">💨 Wind Curtailment</div>
-      <div class="irow"><span class="irow-key">Energy Curtailed</span><span class="irow-val">0.41 MU</span></div>
-      <div class="irow"><span class="irow-key">Peak Curtailment</span><span class="irow-val">147 MW</span></div>
-      <div class="irow"><span class="irow-key">Share of total</span><span class="irow-val">13.5%</span></div>
-      <div class="irow"><span class="irow-key">Max Wind Generation</span><span class="irow-val">11,497 MW</span></div>
-      <div class="irow"><span class="irow-key">Category</span><span class="irow-val"><span class="badge badge-wind">Onshore Wind</span></span></div>
+      <div class="ititle">💨 Wind in Demand Mix</div>
+      <div class="irow"><span class="ik">Contribution to Demand</span><span class="iv">12,036 MW</span></div>
+      <div class="irow"><span class="ik">Wind Penetration %</span><span class="iv">4.86%</span></div>
+      <div class="irow"><span class="ik">Max Wind Generation</span><span class="iv">15,572 MW</span></div>
+      <div class="irow"><span class="ik">Max Wind Penetration</span><span class="iv">6.93%</span></div>
+      <div class="irow"><span class="ik">Type</span><span class="iv"><span class="badge b-wind">Onshore Wind</span></span></div>
     </div>
     <div class="icard">
-      <div class="icard-title">🔌 Grid Overview</div>
-      <div class="irow"><span class="irow-key">VRE Penetration</span><span class="irow-val">25.93%</span></div>
-      <div class="irow"><span class="irow-key">Max Demand Met</span><span class="irow-val">247,881 MW</span></div>
-      <div class="irow"><span class="irow-key">Solar Hours Peak</span><span class="irow-val">15:37 hrs</span></div>
-      <div class="irow"><span class="irow-key">Report Date</span><span class="irow-val">12-May-2026</span></div>
-      <div class="irow"><span class="irow-key">Source</span><span class="irow-val"><span class="badge badge-blue">Grid India</span></span></div>
+      <div class="ititle">⚡ VRE Combined</div>
+      <div class="irow"><span class="ik">Total VRE in Demand</span><span class="iv">55,330 MW</span></div>
+      <div class="irow"><span class="ik">VRE Penetration %</span><span class="iv">22.34%</span></div>
+      <div class="irow"><span class="ik">Max VRE Generation</span><span class="iv">87,769 MW</span></div>
+      <div class="irow"><span class="ik">Max VRE Penetration</span><span class="iv">37.20%</span></div>
+      <div class="irow"><span class="ik">Source</span><span class="iv"><span class="badge b-blue">Grid India</span></span></div>
     </div>
   </div>
 
-  <div class="section-label">Region & Station Details</div>
-  <div class="big-card">
-    <div class="big-card-title">Region-wise Curtailment Status</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
-      <div>
-        <div style="font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:14px">Curtailment by Region (MU)</div>
-        <div class="region-bar">
-          <div class="region-bar-top"><span class="region-name">North Region (NR)</span><span class="region-val">3.03 MU</span></div>
-          <div class="region-track"><div class="region-fill" style="width:100%;background:linear-gradient(90deg,#ef4444,#f97316)"></div></div>
-        </div>
-        <div class="region-bar">
-          <div class="region-bar-top"><span class="region-name">South Region (SR)</span><span class="region-val">0 MU</span></div>
-          <div class="region-track"><div class="region-fill" style="width:2%;background:#10b981"></div></div>
-        </div>
-        <div class="region-bar">
-          <div class="region-bar-top"><span class="region-name">West Region (WR)</span><span class="region-val">0 MU</span></div>
-          <div class="region-track"><div class="region-fill" style="width:2%;background:#10b981"></div></div>
-        </div>
-        <div class="region-bar">
-          <div class="region-bar-top"><span class="region-name">East Region (ER)</span><span class="region-val">0 MU</span></div>
-          <div class="region-track"><div class="region-fill" style="width:2%;background:#10b981"></div></div>
-        </div>
-        <div class="region-bar">
-          <div class="region-bar-top"><span class="region-name">North-East Region (NER)</span><span class="region-val">0 MU</span></div>
-          <div class="region-track"><div class="region-fill" style="width:2%;background:#10b981"></div></div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:14px">Key Stations Today</div>
-        <div class="stations-list">
-          <div class="station-item station-bad"><span class="s-name">Ramgarh (Rajasthan)</span><span class="s-type">Solar · NR</span></div>
-          <div class="station-item station-bad"><span class="s-name">Bhadla 3 (Rajasthan)</span><span class="s-type">Solar · NR</span></div>
-          <div class="station-item station-bad"><span class="s-name">Fatehgarh 4 (Rajasthan)</span><span class="s-type">Solar · NR</span></div>
-          <div class="station-item station-good"><span class="s-name">All SR / WR / ER stations</span><span class="s-type">No curtailment ✓</span></div>
-        </div>
-      </div>
+  <!-- ── Section 8 & 9 detail ── -->
+  <div class="sec-label">Section 8 & 9 Detail</div>
+  <div class="two-col">
+    <div class="icard">
+      <div class="ititle">📊 Section 8 — Real Time System Constraints</div>
+      <div class="irow"><span class="ik">Wind Curtailed (Max MW)</span><span class="iv">989 MW</span></div>
+      <div class="irow"><span class="ik">Wind Curtailed (MU)</span><span class="iv">2.39 MU</span></div>
+      <div class="irow"><span class="ik">Solar Curtailed (Max MW)</span><span class="iv">2,278 MW</span></div>
+      <div class="irow"><span class="ik">Solar Curtailed (MU)</span><span class="iv">5.92 MU</span></div>
+      <div class="irow"><span class="ik">Total Curtailed (MU)</span><span class="iv">8.31 MU</span></div>
+    </div>
+    <div class="icard">
+      <div class="ititle">🔴 Section 9 — Emergency TRAS Down</div>
+      <div class="irow"><span class="ik">TRAS Wind (Max MW)</span><span class="iv">0 MW</span></div>
+      <div class="irow"><span class="ik">TRAS Wind (MU)</span><span class="iv">0.00 MU</span></div>
+      <div class="irow"><span class="ik">TRAS Solar (Max MW)</span><span class="iv">0 MW</span></div>
+      <div class="irow"><span class="ik">TRAS Solar (MU)</span><span class="iv">0.00 MU</span></div>
+      <div class="irow"><span class="ik">TRAS Total (MU)</span><span class="iv">0.00 MU</span></div>
     </div>
   </div>
 
-  <div class="big-card">
-    <div class="big-card-title">⚠️ Curtailment Reasons — From Today's Report</div>
-    <div class="reasons-grid">
-      <div class="reason-item">
-        <div class="reason-dot red"></div>
-        <div>
-          <div class="reason-text">Outage (tripping) of 765kV Aligarh-Sikar2 Circuit 2</div>
-          <div class="reason-region">North Region · Primary cause</div>
+  <!-- ── Curtailment reasons ── -->
+  <div class="sec-label">Curtailment Reasons — Station-wise (13-May-26)</div>
+  <div class="bigcard">
+    <div class="bigtitle">⚠️ Active Reasons (Section 8)</div>
+    <div class="reasons-wrap">
+      
+        <div class="reason-card">
+          <div class="rc-station">र र्स्थ न / Rajasthan</div>
+          <div class="rc-reason">Due to O/L at 220 KV Bikaner - Gajner I & II and O/L of ICT's at 400 KV Bhadla</div>
+          <div class="rc-vals"><span class="rv solar">☀️ 165.0 MW solar</span></div>
         </div>
-      </div>
-      <div class="reason-item">
-        <div class="reason-dot red"></div>
-        <div>
-          <div class="reason-text">Overload at 220kV Bikaner-Gajner Lines I & II + ICT overload at 400kV Bhadla</div>
-          <div class="reason-region">North Region · Rajasthan</div>
+        <div class="reason-card">
+          <div class="rc-station">गर्ुर त / Gujarat</div>
+          <div class="rc-reason">DUE TO HEAVY UD IN GUJARAT SYSTEM</div>
+          <div class="rc-vals"><span class="rv wind">💨 989.0 MW wind</span><span class="rv solar">☀️ 2113.0 MW solar</span></div>
         </div>
-      </div>
-      <div class="reason-item">
-        <div class="reason-dot green"></div>
-        <div>
-          <div class="reason-text">No curtailment in South, West, East and North-East regions today</div>
-          <div class="reason-region">SR · WR · ER · NER — All clear ✓</div>
-        </div>
-      </div>
+    </div>
+  </div>
+
+  <!-- ── History table ── -->
+  <div class="sec-label">Daily History — Last 15 Days</div>
+  <div class="bigcard">
+    <div class="bigtitle">📅 Day-by-Day Summary
+      <a href="curtailment_history.csv" style="float:right;font-size:11px;color:var(--blue);
+        text-decoration:none;font-weight:400">⬇ Download Full CSV</a>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Demand (MW)</th>
+            <th>VRE %</th>
+            <th>Wind Curtail (MU)</th>
+            <th>Solar Curtail (MU)</th>
+            <th>Total (MU)</th>
+            <th>TRAS (MU)</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        <tr class="row-high">
+          <td>13-May-26</td>
+          <td>247,680</td>
+          <td>22.34%</td>
+          <td>2.39</td>
+          <td>5.92</td>
+          <td><strong>8.31</strong></td>
+          <td>0.00</td>
+        </tr>
+        <tr class="row-med">
+          <td>12-May-26</td>
+          <td>247,881</td>
+          <td>25.93%</td>
+          <td>0.41</td>
+          <td>2.62</td>
+          <td><strong>3.03</strong></td>
+          <td>0.00</td>
+        </tr>
+        <tr class="row-med">
+          <td>11-May-26</td>
+          <td>241,522</td>
+          <td>26.84%</td>
+          <td>0.95</td>
+          <td>3.70</td>
+          <td><strong>4.65</strong></td>
+          <td>25.48</td>
+        </tr>
+        <tr class="row-high">
+          <td>10-May-26</td>
+          <td>212,671</td>
+          <td>32.13%</td>
+          <td>1.94</td>
+          <td>6.52</td>
+          <td><strong>8.46</strong></td>
+          <td>46.18</td>
+        </tr>
+        <tr class="row-med">
+          <td>09-May-26</td>
+          <td>226,682</td>
+          <td>29.60%</td>
+          <td>0.18</td>
+          <td>2.26</td>
+          <td><strong>2.44</strong></td>
+          <td>15.05</td>
+        </tr>
+        <tr class="row-med">
+          <td>08-May-26</td>
+          <td>223,878</td>
+          <td>29.50%</td>
+          <td>0.15</td>
+          <td>1.53</td>
+          <td><strong>1.68</strong></td>
+          <td>15.50</td>
+        </tr>
+        <tr class="row-high">
+          <td>07-May-26</td>
+          <td>217,814</td>
+          <td>31.67%</td>
+          <td>1.06</td>
+          <td>4.33</td>
+          <td><strong>5.39</strong></td>
+          <td>15.34</td>
+        </tr>
+        <tr class="row-low">
+          <td>06-May-26</td>
+          <td>222,744</td>
+          <td>28.42%</td>
+          <td>0.00</td>
+          <td>0.00</td>
+          <td><strong>0.00</strong></td>
+          <td>14.84</td>
+        </tr>
+        <tr class="row-low">
+          <td>05-May-26</td>
+          <td>221,576</td>
+          <td>28.97%</td>
+          <td>0.00</td>
+          <td>0.66</td>
+          <td><strong>0.66</strong></td>
+          <td>15.84</td>
+        </tr>
+        <tr class="row-med">
+          <td>04-May-26</td>
+          <td>0</td>
+          <td>0.00%</td>
+          <td>0.06</td>
+          <td>4.44</td>
+          <td><strong>4.50</strong></td>
+          <td>38.56</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size:11px;color:var(--t3);margin-top:10px">
+      🟥 &gt;5 MU high &nbsp;|&nbsp; 🟧 1–5 MU medium &nbsp;|&nbsp; 🟩 &lt;1 MU low
     </div>
   </div>
 
 </div>
 
+<!-- ── Footer ── -->
 <div class="footer">
-  <span>🌱 <strong style="color:rgba(255,255,255,0.7)">India RE Curtailment Tracker</strong> — Built by Sanket</span>
-  <span class="footer-sep">|</span>
-  <span>Data: <a href="https://grid-india.in/en/reports/daily-vre-report" target="_blank">Grid India NLDC-REMC Daily VRE Report</a></span>
-  <span class="footer-sep">|</span>
+  <span>🌱 <strong style="color:rgba(255,255,255,.7)">India RE Curtailment Tracker</strong> by Sanket</span>
+  <span style="opacity:.3">|</span>
+  <span>Data: <a href="https://grid-india.in/en/reports/daily-vre-report" target="_blank">Grid India NLDC-REMC</a></span>
+  <span style="opacity:.3">|</span>
   <a href="curtailment_history.csv">⬇ Download CSV</a>
-  <span class="footer-sep">|</span>
-  <span>Updated daily · Figures in MU & MW</span>
+  <span style="opacity:.3">|</span>
+  <span style="opacity:.5">Add PDF → python updater.py → git push</span>
 </div>
 
 <script>
-  const dates = ["12-May"];
-  const solar = [2.62];
-  const wind  = [0.41];
-  const vre   = [25.93];
-  const gc = 'rgba(0,0,0,0.05)';
-  const font = { family: 'DM Sans', size: 12 };
-  const monoFont = { family: 'DM Mono', size: 11 };
+const dates   = ["04-May-26", "05-May-26", "06-May-26", "07-May-26", "08-May-26", "09-May-26", "10-May-26", "11-May-26", "12-May-26", "13-May-26"];
+const windMu  = [0.06, 0.0, 0.0, 1.06, 0.15, 0.18, 1.94, 0.95, 0.41, 2.39];
+const solarMu = [4.44, 0.66, 0.0, 4.33, 1.53, 2.26, 6.52, 3.7, 2.62, 5.92];
+const vrePct  = [0.0, 28.97, 28.42, 31.67, 29.5, 29.6, 32.13, 26.84, 25.93, 22.34];
+const gc = 'rgba(0,0,0,0.05)';
+const f  = {family:'DM Sans',size:12};
+const m  = {family:'DM Mono',size:11};
 
-  new Chart(document.getElementById('trendChart'), {
-    type: 'bar',
-    data: { labels: dates, datasets: [
-      { label: 'Solar MU', data: solar, backgroundColor: '#f59e0b', borderRadius: 6, stack: 'a' },
-      { label: 'Wind MU',  data: wind,  backgroundColor: '#10b981', borderRadius: 6, stack: 'a' }
-    ]},
-    options: { responsive: true,
-      plugins: { legend: { position: 'top', labels: { font, boxWidth: 12, boxHeight: 12, borderRadius: 4, useBorderRadius: true } } },
-      scales: {
-        x: { stacked: true, grid: { color: gc }, ticks: { font: monoFont } },
-        y: { stacked: true, beginAtZero: true, grid: { color: gc }, ticks: { font: monoFont },
-             title: { display: true, text: 'MU', font, color: '#94a3b8' } }
-      }
+// ── Stacked bar: curtailment trend ──
+new Chart(document.getElementById('trendChart'), {
+  type: 'bar',
+  data: {
+    labels: dates,
+    datasets: [
+      {label:'Solar MU', data:solarMu, backgroundColor:'#f59e0b', borderRadius:3, stack:'a'},
+      {label:'Wind MU',  data:windMu,  backgroundColor:'#10b981', borderRadius:3, stack:'a'}
+    ]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{ position:'top', labels:{ font:f, boxWidth:12 } } },
+    scales:{
+      x:{ stacked:true, grid:{color:gc}, ticks:{font:m, maxRotation:45} },
+      y:{ stacked:true, beginAtZero:true, grid:{color:gc}, ticks:{font:m},
+           title:{display:true, text:'MU', font:f, color:'#94a3b8'} }
     }
-  });
+  }
+});
 
-  new Chart(document.getElementById('splitChart'), {
-    type: 'doughnut',
-    data: { labels: ['Solar (2.62 MU)', 'Wind (0.41 MU)'],
-      datasets: [{ data: [2.62, 0.41], backgroundColor: ['#f59e0b','#10b981'], borderWidth: 3, borderColor: '#fff', hoverOffset: 6 }]
-    },
-    options: { responsive: true, cutout: '62%',
-      plugins: { legend: { position: 'bottom', labels: { font, boxWidth: 12 } } }
-    }
-  });
+// ── Doughnut: solar vs wind split ──
+new Chart(document.getElementById('splitChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Solar (5.92 MU)', 'Wind (2.39 MU)'],
+    datasets: [{
+      data: [5.92, 2.39],
+      backgroundColor: ['#f59e0b', '#10b981'],
+      borderWidth: 3, borderColor: '#fff', hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive:true, cutout:'62%',
+    plugins:{ legend:{ position:'bottom', labels:{font:f, boxWidth:12} } }
+  }
+});
 
-  new Chart(document.getElementById('vreChart'), {
-    type: 'line',
-    data: { labels: dates, datasets: [{
-      label: 'VRE %', data: vre,
-      borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)',
-      fill: true, tension: 0.4, pointBackgroundColor: '#8b5cf6', pointRadius: 6, borderWidth: 2.5
-    }]},
-    options: { responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { color: gc }, ticks: { font: monoFont } },
-        y: { beginAtZero: false, grid: { color: gc },
-             ticks: { font: monoFont, callback: v => v + '%' },
-             title: { display: true, text: 'VRE %', font, color: '#94a3b8' } }
-      }
+// ── Line: VRE penetration ──
+new Chart(document.getElementById('vreChart'), {
+  type: 'line',
+  data: {
+    labels: dates,
+    datasets: [{
+      label:'VRE %', data:vrePct,
+      borderColor:'#8b5cf6', backgroundColor:'rgba(139,92,246,0.1)',
+      fill:true, tension:0.4,
+      pointBackgroundColor:'#8b5cf6', pointRadius:4, borderWidth:2.5
+    }]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{display:false} },
+    scales:{
+      x:{ grid:{color:gc}, ticks:{font:m, maxRotation:45} },
+      y:{ beginAtZero:false, grid:{color:gc},
+           ticks:{font:m, callback:v=>v+'%'},
+           title:{display:true, text:'VRE %', font:f, color:'#94a3b8'} }
     }
-  });
+  }
+});
 </script>
 </body>
 </html>
