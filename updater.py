@@ -38,6 +38,32 @@ CSV_FIELDS = [
     "curtail_reasons",
 ]
 
+# ─── manual overrides ───────────────────────────────────────────────────────
+# Use this for any PDF whose Page 1 regex fails to parse correctly.
+# Key   = ISO date string  "YYYY-MM-DD"
+# Value = dict of any CSV_FIELDS you want to force-set for that date.
+# These are applied AFTER PDF extraction, so they always win.
+# Add new entries here whenever a PDF produces wrong/zero values.
+#
+# How to find the correct values:
+#   Open the PDF, look at Page 1 "Solar Hours" row:
+#     demand_mw | time | wind_mw | wind% | solar_mw | solar% | vre_mw | vre%
+#
+MANUAL_OVERRIDES = {
+    "2026-05-04": {
+        "vre_total_pct":        28.11,   # from Page 1 Solar hrs row → VRE %
+        "solar_hrs_demand_mw":  221648,  # from Page 1 Solar hrs row → Demand MW
+        # add more fields below if also wrong, e.g.:
+        # "wind_contribution_pct":  3.25,
+        # "solar_contribution_pct": 22.68,
+        # "vre_total_mw":           62345,
+        # "solar_curtail_mu":       34.97,
+        # "wind_curtail_mu":        3.59,
+        # "total_curtail_mu":       38.56,
+    },
+    # "2026-05-XX": { "vre_total_pct": 0.0, ... },  # template for future fixes
+}
+
 # ─── helpers ────────────────────────────────────────────────────────────────
 
 def date_from_filename(fname):
@@ -824,6 +850,16 @@ def main():
     all_data = process_all_pdfs()
     if not all_data:
         sys.exit(1)
+
+    # ── apply manual overrides ──────────────────────────────────────────────
+    if MANUAL_OVERRIDES:
+        for row in all_data:
+            if row["date"] in MANUAL_OVERRIDES:
+                fixes = MANUAL_OVERRIDES[row["date"]]
+                row.update(fixes)
+                print(f"  [OVERRIDE] {row['date']} → {list(fixes.keys())}")
+    # ───────────────────────────────────────────────────────────────────────
+
     write_csv(all_data)
     generate_html(all_data)
     latest = all_data[-1]
