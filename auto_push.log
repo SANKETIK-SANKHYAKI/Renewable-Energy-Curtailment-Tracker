@@ -126,3 +126,402 @@ warning: in the working copy of 'curtailment_history.csv', LF will be replaced b
    0649d2d..03a06e1  main -> main
 2026-05-15 04:11:47  INFO  \u2705 SUCCESS — Dashboard updated and pushed to GitHub!
 2026-05-15 04:11:47  INFO  ==================================================
+2026-05-15 05:44:35  INFO  ==================================================
+2026-05-15 05:44:35  INFO  auto_push.py started
+2026-05-15 05:44:35  INFO  New PDF(s) detected: ['01.04.2026_NLDC_REMC_REPORT_162.pdf', '01.05.2026_NLDC_REMC_REPORT_919.pdf', '02.04.2026_NLDC_REMC_REPORT_718.pdf', '02.05.2026_NLDC_REMC_REPORT_752.pdf', '03.04.2026_NLDC_REMC_REPORT_628.pdf', '03.05.2026_NLDC_REMC_REPORT_480.pdf', '04.04.2026_NLDC_REMC_REPORT_673.pdf', '05.04.2026_NLDC_REMC_REPORT_946.pdf', '06.04.2026_NLDC_REMC_REPORT_777.pdf', '07.04.2026_NLDC_REMC_REPORT_657.pdf', '08.04.2026_NLDC_REMC_REPORT_583.pdf', '09.04.2026_NLDC_REMC_REPORT_602.pdf', '10.04.2026_NLDC_REMC_REPORT_133.pdf', '11.04.2026_NLDC_REMC_REPORT_288.pdf', '12.04.2026_NLDC_REMC_REPORT_128.pdf', '13.04.2026_NLDC_REMC_REPORT_426.pdf', '14.04.2026_NLDC_REMC_REPORT_706.pdf', '15.04.2026_NLDC_REMC_REPORT_596.pdf', '16.04.2026_NLDC_REMC_REPORT_530.pdf', '17.04.2026_NLDC_REMC_REPORT_434.pdf', '18.04.2026_NLDC_REMC_REPORT_604.pdf', '19.04.2026_NLDC_REMC_REPORT_658.pdf', '20.04.2026_NLDC_REMC_REPORT_857.pdf', '21.04.2026_NLDC_REMC_REPORT_900.pdf', '22.04.2026_NLDC_REMC_REPORT_142.pdf', '23.04.2026_NLDC_REMC_REPORT_465.pdf', '24.04.2026_NLDC_REMC_REPORT_639.pdf', '25.04.2026_NLDC_REMC_REPORT_739.pdf', '26.04.2026_NLDC_REMC_REPORT_410.pdf', '27.04.2026_NLDC_REMC_REPORT_844.pdf', '28.04.2026_NLDC_REMC_REPORT_656.pdf', '29.04.2026_NLDC_REMC_REPORT_552.pdf', '30.04.2026_NLDC_REMC_REPORT_435.pdf']
+2026-05-15 05:44:35  INFO  Running updater.py ...
+2026-05-15 05:47:26  INFO  ======================================================
+  India RE Curtailment Tracker — Updater v3
+======================================================
+
+[1/3] PDFs process ho rahe hain...
+
+  43 PDF(s) mile
+
+  Processing: 01.04.2026_NLDC_REMC_REPORT_162.pdf
+    Wind curtail : 30 MW | 0.04 MU
+    Solar curtail: 2251 MW | 5.95 MU
+    Total curtail: 5.99 MU
+    TRAS         : Wind 0.3 MU | Solar 6.51 MU
+    VRE          : 25.36% | Demand: 214,947 MW
+
+  Processing: 01.05.2026_NLDC_REMC_REPORT_919.pdf
+    Wind curtail : 1670 MW | 3.4 MU
+    Solar curtail: 5798 MW | 18.57 MU
+    Total curtail: 21.97 MU
+    TRAS         : Wind 16.94 MU | Solar 102.89 MU
+    VRE          : 36.36% | Demand: 210,130 MW
+
+  Processing: 02.04.2026_NLDC_REMC_REPORT_718.pdf
+    Wind curtail : 633 MW | 0.74 MU
+    Solar curtail: 2304 MW | 5.54 MU
+    Total curtail: 6.28 MU
+    TRAS         : Wind 0.62 MU | Solar 8.08 MU
+    VRE          : 31.45% | Demand: 219,083 MW
+
+  Processing: 02.05.2026_NLDC_REMC_REPORT_752.pdf
+    Wind curtail : 1277 MW | 2.06 MU
+    Solar curtail: 2734 MW | 6.94 MU
+    Total curtail: 9.0 MU
+    TRAS         : Wind 2.95 MU | Solar 19.14 MU
+    VRE          : 33.14% | Demand: 228,958 MW
+
+  Processing: 03.04.2026_NLDC_REMC_REPORT_628.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 0 MW | 0.0 MU
+    Total curtail: 0.0 MU
+    TRAS         : Wind 0.02 MU | Solar 1.07 MU
+    VRE          : 29.2% | Demand: 214,794 MW
+
+  Processing: 03.05.2026_NLDC_REMC_REPORT_480.pdf
+    Wind curtail : 2010 MW | 5.86 MU
+    Solar curtail: 4079 MW | 16.62 MU
+    Total curtail: 22.48 MU
+    TRAS         : Wind 16.29 MU | Solar 105.04 MU
+    VRE          : 35.18% | Demand: 209,493 MW
+
+  Processing: 04.04.2026_NLDC_REMC_REPORT_673.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 215 MW | 0.86 MU
+    Total curtail: 0.86 MU
+    TRAS         : Wind 0.4 MU | Solar 8.89 MU
+    VRE          : 28.87% | Demand: 214,380 MW
+
+  Processing: 04.05.2026_NLDC_REMC_REPORT_604.pdf
+    Wind curtail : 25 MW | 0.06 MU
+    Solar curtail: 1592 MW | 4.44 MU
+    Total curtail: 4.5 MU
+    TRAS         : Wind 3.59 MU | Solar 34.97 MU
+    VRE          : 0.0% | Demand: 0 MW
+
+  Processing: 05.04.2026_NLDC_REMC_REPORT_946.pdf
+    Wind curtail : 215 MW | 0.44 MU
+    Solar curtail: 3634 MW | 9.22 MU
+    Total curtail: 9.66 MU
+    TRAS         : Wind 4.41 MU | Solar 80.55 MU
+    VRE          : 34.88% | Demand: 196,849 MW
+
+  Processing: 05.05.2026_NLDC_REMC_REPORT_792.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 158 MW | 0.66 MU
+    Total curtail: 0.66 MU
+    TRAS         : Wind 4.66 MU | Solar 11.18 MU
+    VRE          : 28.97% | Demand: 221,576 MW
+
+  Processing: 06.04.2026_NLDC_REMC_REPORT_777.pdf
+    Wind curtail : 160 MW | 1.55 MU
+    Solar curtail: 2645 MW | 10.01 MU
+    Total curtail: 11.56 MU
+    TRAS         : Wind 4.35 MU | Solar 40.73 MU
+    VRE          : 36.56% | Demand: 207,792 MW
+
+  Processing: 06.05.2026_NLDC_REMC_REPORT_224.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 0 MW | 0.0 MU
+    Total curtail: 0.0 MU
+    TRAS         : Wind 4.05 MU | Solar 10.79 MU
+    VRE          : 28.42% | Demand: 222,744 MW
+
+  Processing: 07.04.2026_NLDC_REMC_REPORT_657.pdf
+    Wind curtail : 613 MW | 4.93 MU
+    Solar curtail: 3380 MW | 12.13 MU
+    Total curtail: 17.06 MU
+    TRAS         : Wind 6.54 MU | Solar 33.44 MU
+    VRE          : 32.85% | Demand: 209,503 MW
+
+  Processing: 07.05.2026_NLDC_REMC_REPORT_433.pdf
+    Wind curtail : 502 MW | 1.06 MU
+    Solar curtail: 2312 MW | 4.33 MU
+    Total curtail: 5.39 MU
+    TRAS         : Wind 1.13 MU | Solar 14.21 MU
+    VRE          : 31.67% | Demand: 217,814 MW
+
+  Processing: 08.04.2026_NLDC_REMC_REPORT_583.pdf
+    Wind curtail : 1418 MW | 2.96 MU
+    Solar curtail: 5615 MW | 14.73 MU
+    Total curtail: 17.69 MU
+    TRAS         : Wind 4.09 MU | Solar 48.49 MU
+    VRE          : 37.46% | Demand: 203,337 MW
+
+  Processing: 08.05.2026_NLDC_REMC_REPORT_120.pdf
+    Wind curtail : 178 MW | 0.15 MU
+    Solar curtail: 1000 MW | 1.53 MU
+    Total curtail: 1.68 MU
+    TRAS         : Wind 1.13 MU | Solar 14.37 MU
+    VRE          : 29.5% | Demand: 223,878 MW
+
+  Processing: 09.04.2026_NLDC_REMC_REPORT_602.pdf
+    Wind curtail : 40 MW | 0.11 MU
+    Solar curtail: 4891 MW | 11.65 MU
+    Total curtail: 11.76 MU
+    TRAS         : Wind 1.57 MU | Solar 38.11 MU
+    VRE          : 34.57% | Demand: 207,738 MW
+
+  Processing: 09.05.2026_NLDC_REMC_REPORT_375.pdf
+    Wind curtail : 106 MW | 0.18 MU
+    Solar curtail: 1005 MW | 2.26 MU
+    Total curtail: 2.44 MU
+    TRAS         : Wind 0.76 MU | Solar 14.29 MU
+    VRE          : 29.6% | Demand: 226,682 MW
+
+  Processing: 10.04.2026_NLDC_REMC_REPORT_133.pdf
+    Wind curtail : 160 MW | 1.74 MU
+    Solar curtail: 2996 MW | 14.05 MU
+    Total curtail: 15.79 MU
+    TRAS         : Wind 2.54 MU | Solar 51.99 MU
+    VRE          : 34.46% | Demand: 209,217 MW
+
+  Processing: 10.05.2026_NLDC_REMC_REPORT_225.pdf
+    Wind curtail : 1022 MW | 1.94 MU
+    Solar curtail: 3635 MW | 6.52 MU
+    Total curtail: 8.46 MU
+    TRAS         : Wind 3.43 MU | Solar 42.75 MU
+    VRE          : 32.13% | Demand: 212,671 MW
+
+  Processing: 11.04.2026_NLDC_REMC_REPORT_288.pdf
+    Wind curtail : 115 MW | 0.21 MU
+    Solar curtail: 3910 MW | 8.6 MU
+    Total curtail: 8.81 MU
+    TRAS         : Wind 1.97 MU | Solar 34.35 MU
+    VRE          : 30.32% | Demand: 212,218 MW
+
+  Processing: 11.05.2026_NLDC_REMC_REPORT_187.pdf
+    Wind curtail : 235 MW | 0.95 MU
+    Solar curtail: 940 MW | 3.7 MU
+    Total curtail: 4.65 MU
+    TRAS         : Wind 0.22 MU | Solar 25.26 MU
+    VRE          : 26.84% | Demand: 241,522 MW
+
+  Processing: 12.04.2026_NLDC_REMC_REPORT_128.pdf
+    Wind curtail : 79 MW | 0.23 MU
+    Solar curtail: 3750 MW | 14.81 MU
+    Total curtail: 15.04 MU
+    TRAS         : Wind 8.99 MU | Solar 47.08 MU
+    VRE          : 34.95% | Demand: 206,693 MW
+
+  Processing: 12.05.2026_NLDC_REMC_REPORT_144.pdf
+    Wind curtail : 147 MW | 0.41 MU
+    Solar curtail: 1424 MW | 2.62 MU
+    Total curtail: 3.03 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 25.93% | Demand: 247,881 MW
+
+  Processing: 13.04.2026_NLDC_REMC_REPORT_426.pdf
+    Wind curtail : 30 MW | 0.05 MU
+    Solar curtail: 1950 MW | 5.72 MU
+    Total curtail: 5.77 MU
+    TRAS         : Wind 0.77 MU | Solar 10.68 MU
+    VRE          : 34.46% | Demand: 221,913 MW
+
+  Processing: 13.05.2026_NLDC_REMC_REPORT_565.pdf
+    Wind curtail : 989 MW | 2.39 MU
+    Solar curtail: 2278 MW | 5.92 MU
+    Total curtail: 8.31 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 22.34% | Demand: 247,680 MW
+
+  Processing: 14.04.2026_NLDC_REMC_REPORT_706.pdf
+    Wind curtail : 638 MW | 1.37 MU
+    Solar curtail: 2368 MW | 6.33 MU
+    Total curtail: 7.7 MU
+    TRAS         : Wind 1.49 MU | Solar 18.01 MU
+    VRE          : 33.79% | Demand: 223,048 MW
+
+  Processing: 15.04.2026_NLDC_REMC_REPORT_596.pdf
+    Wind curtail : 301 MW | 0.49 MU
+    Solar curtail: 3318 MW | 7.53 MU
+    Total curtail: 8.02 MU
+    TRAS         : Wind 0.65 MU | Solar 11.99 MU
+    VRE          : 29.93% | Demand: 228,400 MW
+
+  Processing: 16.04.2026_NLDC_REMC_REPORT_530.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 2257 MW | 4.42 MU
+    Total curtail: 4.42 MU
+    TRAS         : Wind 0.07 MU | Solar 0.88 MU
+    VRE          : 26.79% | Demand: 234,811 MW
+
+  Processing: 17.04.2026_NLDC_REMC_REPORT_434.pdf
+    Wind curtail : 643 MW | 1.5 MU
+    Solar curtail: 3100 MW | 8.38 MU
+    Total curtail: 9.88 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 27.3% | Demand: 238,945 MW
+
+  Processing: 18.04.2026_NLDC_REMC_REPORT_604.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 2631 MW | 3.95 MU
+    Total curtail: 3.95 MU
+    TRAS         : Wind 0.0 MU | Solar 0.01 MU
+    VRE          : 27.95% | Demand: 238,805 MW
+
+  Processing: 19.04.2026_NLDC_REMC_REPORT_658.pdf
+    Wind curtail : 847 MW | 1.13 MU
+    Solar curtail: 2667 MW | 6.47 MU
+    Total curtail: 7.6 MU
+    TRAS         : Wind 0.54 MU | Solar 4.66 MU
+    VRE          : 31.09% | Demand: 220,964 MW
+
+  Processing: 20.04.2026_NLDC_REMC_REPORT_857.pdf
+    Wind curtail : 100 MW | 0.1 MU
+    Solar curtail: 2227 MW | 4.3 MU
+    Total curtail: 4.4 MU
+    TRAS         : Wind 0.0 MU | Solar 0.17 MU
+    VRE          : 27.85% | Demand: 237,433 MW
+
+  Processing: 21.04.2026_NLDC_REMC_REPORT_900.pdf
+    Wind curtail : 257 MW | 1.62 MU
+    Solar curtail: 2481 MW | 8.31 MU
+    Total curtail: 9.93 MU
+    TRAS         : Wind 0.1 MU | Solar 1.84 MU
+    VRE          : 27.05% | Demand: 233,457 MW
+
+  Processing: 22.04.2026_NLDC_REMC_REPORT_142.pdf
+    Wind curtail : 511 MW | 0.9 MU
+    Solar curtail: 2971 MW | 11.82 MU
+    Total curtail: 12.72 MU
+    TRAS         : Wind 0.61 MU | Solar 6.36 MU
+    VRE          : 29.42% | Demand: 238,464 MW
+
+  Processing: 23.04.2026_NLDC_REMC_REPORT_465.pdf
+    Wind curtail : 112 MW | 0.24 MU
+    Solar curtail: 1964 MW | 5.95 MU
+    Total curtail: 6.19 MU
+    TRAS         : Wind 0.19 MU | Solar 2.63 MU
+    VRE          : 28.17% | Demand: 240,120 MW
+
+  Processing: 24.04.2026_NLDC_REMC_REPORT_639.pdf
+    Wind curtail : 397 MW | 0.5 MU
+    Solar curtail: 1931 MW | 3.14 MU
+    Total curtail: 3.64 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 25.64% | Demand: 252,075 MW
+
+  Processing: 25.04.2026_NLDC_REMC_REPORT_739.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 170 MW | 0.42 MU
+    Total curtail: 0.42 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 23.86% | Demand: 256,117 MW
+
+  Processing: 26.04.2026_NLDC_REMC_REPORT_410.pdf
+    Wind curtail : 372 MW | 1.53 MU
+    Solar curtail: 3097 MW | 6.77 MU
+    Total curtail: 8.3 MU
+    TRAS         : Wind 0.01 MU | Solar 0.14 MU
+    VRE          : 28.1% | Demand: 235,349 MW
+
+  Processing: 27.04.2026_NLDC_REMC_REPORT_844.pdf
+    Wind curtail : 1037 MW | 1.44 MU
+    Solar curtail: 2800 MW | 7.27 MU
+    Total curtail: 8.71 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 27.68% | Demand: 255,859 MW
+
+  Processing: 28.04.2026_NLDC_REMC_REPORT_656.pdf
+    Wind curtail : 1366 MW | 1.92 MU
+    Solar curtail: 2189 MW | 6.36 MU
+    Total curtail: 8.28 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 27.65% | Demand: 253,477 MW
+
+  Processing: 29.04.2026_NLDC_REMC_REPORT_552.pdf
+    Wind curtail : 940 MW | 1.75 MU
+    Solar curtail: 3552 MW | 8.72 MU
+    Total curtail: 10.47 MU
+    TRAS         : Wind 0.06 MU | Solar 0.54 MU
+    VRE          : 29.36% | Demand: 241,339 MW
+
+  Processing: 30.04.2026_NLDC_REMC_REPORT_435.pdf
+    Wind curtail : 932 MW | 1.24 MU
+    Solar curtail: 3002 MW | 7.42 MU
+    Total curtail: 8.66 MU
+    TRAS         : Wind 2.36 MU | Solar 15.78 MU
+    VRE          : 31.47% | Demand: 233,942 MW
+
+[2/3] Writing curtailment_history.csv...
+    Saved — 43 records
+[3/3] Generating index.html...
+    HTML saved — index.html
+
+======================================================
+  Done · 43 records
+  Wind  : 989 MW / 2.39 MU
+  Solar : 2278 MW / 5.92 MU
+  Total : 8.31 MU
+  VRE   : 22.34%
+
+  Ab push karo: git add -A && git commit -m 'update' && git push
+======================================================
+2026-05-15 05:47:26  INFO  Git add ...
+2026-05-15 05:47:30  INFO  warning: in the working copy of 'auto_push.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'curtailment_history.csv', LF will be replaced by CRLF the next time Git touches it
+2026-05-15 05:47:30  INFO  Git commit: auto-update: curtailment data 15-May-2026 05:47
+2026-05-15 05:47:31  INFO  [main cdd7480] auto-update: curtailment data 15-May-2026 05:47
+ 36 files changed, 213 insertions(+), 11 deletions(-)
+ create mode 100644 vre_reports/01.04.2026_NLDC_REMC_REPORT_162.pdf
+ create mode 100644 vre_reports/01.05.2026_NLDC_REMC_REPORT_919.pdf
+ create mode 100644 vre_reports/02.04.2026_NLDC_REMC_REPORT_718.pdf
+ create mode 100644 vre_reports/02.05.2026_NLDC_REMC_REPORT_752.pdf
+ create mode 100644 vre_reports/03.04.2026_NLDC_REMC_REPORT_628.pdf
+ create mode 100644 vre_reports/03.05.2026_NLDC_REMC_REPORT_480.pdf
+ create mode 100644 vre_reports/04.04.2026_NLDC_REMC_REPORT_673.pdf
+ create mode 100644 vre_reports/05.04.2026_NLDC_REMC_REPORT_946.pdf
+ create mode 100644 vre_reports/06.04.2026_NLDC_REMC_REPORT_777.pdf
+ create mode 100644 vre_reports/07.04.2026_NLDC_REMC_REPORT_657.pdf
+ create mode 100644 vre_reports/08.04.2026_NLDC_REMC_REPORT_583.pdf
+ create mode 100644 vre_reports/09.04.2026_NLDC_REMC_REPORT_602.pdf
+ create mode 100644 vre_reports/10.04.2026_NLDC_REMC_REPORT_133.pdf
+ create mode 100644 vre_reports/11.04.2026_NLDC_REMC_REPORT_288.pdf
+ create mode 100644 vre_reports/12.04.2026_NLDC_REMC_REPORT_128.pdf
+ create mode 100644 vre_reports/13.04.2026_NLDC_REMC_REPORT_426.pdf
+ create mode 100644 vre_reports/14.04.2026_NLDC_REMC_REPORT_706.pdf
+ create mode 100644 vre_reports/15.04.2026_NLDC_REMC_REPORT_596.pdf
+ create mode 100644 vre_reports/16.04.2026_NLDC_REMC_REPORT_530.pdf
+ create mode 100644 vre_reports/17.04.2026_NLDC_REMC_REPORT_434.pdf
+ create mode 100644 vre_reports/18.04.2026_NLDC_REMC_REPORT_604.pdf
+ create mode 100644 vre_reports/19.04.2026_NLDC_REMC_REPORT_658.pdf
+ create mode 100644 vre_reports/20.04.2026_NLDC_REMC_REPORT_857.pdf
+ create mode 100644 vre_reports/21.04.2026_NLDC_REMC_REPORT_900.pdf
+ create mode 100644 vre_reports/22.04.2026_NLDC_REMC_REPORT_142.pdf
+ create mode 100644 vre_reports/23.04.2026_NLDC_REMC_REPORT_465.pdf
+ create mode 100644 vre_reports/24.04.2026_NLDC_REMC_REPORT_639.pdf
+ create mode 100644 vre_reports/25.04.2026_NLDC_REMC_REPORT_739.pdf
+ create mode 100644 vre_reports/26.04.2026_NLDC_REMC_REPORT_410.pdf
+ create mode 100644 vre_reports/27.04.2026_NLDC_REMC_REPORT_844.pdf
+ create mode 100644 vre_reports/28.04.2026_NLDC_REMC_REPORT_656.pdf
+ create mode 100644 vre_reports/29.04.2026_NLDC_REMC_REPORT_552.pdf
+ create mode 100644 vre_reports/30.04.2026_NLDC_REMC_REPORT_435.pdf
+2026-05-15 05:47:31  INFO  Git push ...
+2026-05-15 05:48:15  INFO  To https://github.com/SANKETIK-SANKHYAKI/Renewable-Energy-Curtailment-Tracker.git
+   03a06e1..cdd7480  main -> main
+2026-05-15 05:48:15  INFO  \u2705 SUCCESS — Dashboard updated and pushed to GitHub!
+2026-05-15 05:48:15  INFO  ==================================================
+2026-05-15 06:09:02  INFO  ==================================================
+2026-05-15 06:09:02  INFO  auto_push.py started
+2026-05-15 06:09:02  INFO  No new PDFs since last run — skipping.
+2026-05-15 06:09:02  INFO  Done — no action needed.
+2026-05-15 06:09:02  INFO  ==================================================
+2026-05-15 06:09:02  INFO  auto_push.py started
+2026-05-15 06:09:02  INFO  No new PDFs since last run — skipping.
+2026-05-15 06:09:02  INFO  Done — no action needed.
+2026-05-15 06:09:05  INFO  ==================================================
+2026-05-15 06:09:05  INFO  auto_push.py started
+2026-05-15 06:09:05  INFO  No new PDFs since last run — skipping.
+2026-05-15 06:09:05  INFO  Done — no action needed.
+2026-05-15 06:09:21  INFO  ==================================================
+2026-05-15 06:09:21  INFO  auto_push.py started
+2026-05-15 06:09:21  INFO  No new PDFs since last run — skipping.
+2026-05-15 06:09:21  INFO  Done — no action needed.
+2026-05-15 06:09:40  INFO  ==================================================
+2026-05-15 06:09:40  INFO  auto_push.py started
+2026-05-15 06:09:40  INFO  No new PDFs since last run — skipping.
+2026-05-15 06:09:40  INFO  Done — no action needed.
+2026-05-15 06:11:46  INFO  ==================================================
+2026-05-15 06:11:46  INFO  auto_push.py started
+2026-05-15 06:11:46  INFO  No new PDFs since last run — skipping.
+2026-05-15 06:11:46  INFO  Done — no action needed.
+2026-05-15 06:30:02  INFO  ==================================================
+2026-05-15 06:30:02  INFO  auto_push.py started
+2026-05-15 06:30:02  INFO  No new PDFs since last run — skipping.
+2026-05-15 06:30:02  INFO  Done — no action needed.
