@@ -2,3 +2,127 @@
 2026-05-15 04:05:55  INFO  auto_push.py started
 2026-05-15 04:05:55  INFO  No new PDFs since last run — skipping.
 2026-05-15 04:05:55  INFO  Done — no action needed.
+2026-05-15 04:10:32  INFO  ==================================================
+2026-05-15 04:10:32  INFO  auto_push.py started
+2026-05-15 04:10:32  INFO  New PDF(s) detected: ['04.05.2026_NLDC_REMC_REPORT_604.pdf']
+2026-05-15 04:10:32  INFO  Running updater.py ...
+2026-05-15 04:11:12  INFO  ======================================================
+  India RE Curtailment Tracker — Updater v3
+======================================================
+
+[1/3] PDFs process ho rahe hain...
+
+  10 PDF(s) mile
+
+  Processing: 04.05.2026_NLDC_REMC_REPORT_604.pdf
+    Wind curtail : 25 MW | 0.06 MU
+    Solar curtail: 1592 MW | 4.44 MU
+    Total curtail: 4.5 MU
+    TRAS         : Wind 3.59 MU | Solar 34.97 MU
+    VRE          : 0.0% | Demand: 0 MW
+
+  Processing: 05.05.2026_NLDC_REMC_REPORT_792.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 158 MW | 0.66 MU
+    Total curtail: 0.66 MU
+    TRAS         : Wind 4.66 MU | Solar 11.18 MU
+    VRE          : 28.97% | Demand: 221,576 MW
+
+  Processing: 06.05.2026_NLDC_REMC_REPORT_224.pdf
+    Wind curtail : 0 MW | 0.0 MU
+    Solar curtail: 0 MW | 0.0 MU
+    Total curtail: 0.0 MU
+    TRAS         : Wind 4.05 MU | Solar 10.79 MU
+    VRE          : 28.42% | Demand: 222,744 MW
+
+  Processing: 07.05.2026_NLDC_REMC_REPORT_433.pdf
+    Wind curtail : 502 MW | 1.06 MU
+    Solar curtail: 2312 MW | 4.33 MU
+    Total curtail: 5.39 MU
+    TRAS         : Wind 1.13 MU | Solar 14.21 MU
+    VRE          : 31.67% | Demand: 217,814 MW
+
+  Processing: 08.05.2026_NLDC_REMC_REPORT_120.pdf
+    Wind curtail : 178 MW | 0.15 MU
+    Solar curtail: 1000 MW | 1.53 MU
+    Total curtail: 1.68 MU
+    TRAS         : Wind 1.13 MU | Solar 14.37 MU
+    VRE          : 29.5% | Demand: 223,878 MW
+
+  Processing: 09.05.2026_NLDC_REMC_REPORT_375.pdf
+    Wind curtail : 106 MW | 0.18 MU
+    Solar curtail: 1005 MW | 2.26 MU
+    Total curtail: 2.44 MU
+    TRAS         : Wind 0.76 MU | Solar 14.29 MU
+    VRE          : 29.6% | Demand: 226,682 MW
+
+  Processing: 10.05.2026_NLDC_REMC_REPORT_225.pdf
+    Wind curtail : 1022 MW | 1.94 MU
+    Solar curtail: 3635 MW | 6.52 MU
+    Total curtail: 8.46 MU
+    TRAS         : Wind 3.43 MU | Solar 42.75 MU
+    VRE          : 32.13% | Demand: 212,671 MW
+
+  Processing: 11.05.2026_NLDC_REMC_REPORT_187.pdf
+    Wind curtail : 235 MW | 0.95 MU
+    Solar curtail: 940 MW | 3.7 MU
+    Total curtail: 4.65 MU
+    TRAS         : Wind 0.22 MU | Solar 25.26 MU
+    VRE          : 26.84% | Demand: 241,522 MW
+
+  Processing: 12.05.2026_NLDC_REMC_REPORT_144.pdf
+    Wind curtail : 147 MW | 0.41 MU
+    Solar curtail: 1424 MW | 2.62 MU
+    Total curtail: 3.03 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 25.93% | Demand: 247,881 MW
+
+  Processing: 13.05.2026_NLDC_REMC_REPORT_565.pdf
+    Wind curtail : 989 MW | 2.39 MU
+    Solar curtail: 2278 MW | 5.92 MU
+    Total curtail: 8.31 MU
+    TRAS         : Wind 0.0 MU | Solar 0.0 MU
+    VRE          : 22.34% | Demand: 247,680 MW
+
+[2/3] Writing curtailment_history.csv...
+    Saved — 10 records
+[3/3] Generating index.html...
+    HTML saved — index.html
+
+======================================================
+  Done · 10 records
+  Wind  : 989 MW / 2.39 MU
+  Solar : 2278 MW / 5.92 MU
+  Total : 8.31 MU
+  VRE   : 22.34%
+
+  Ab push karo: git add -A && git commit -m 'update' && git push
+======================================================
+2026-05-15 04:11:13  INFO  Git add ...
+2026-05-15 04:11:14  INFO  warning: in the working copy of 'auto_push.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'curtailment_history.csv', LF will be replaced by CRLF the next time Git touches it
+2026-05-15 04:11:14  INFO  Git commit: auto-update: curtailment data 15-May-2026 04:11
+2026-05-15 04:11:17  INFO  [main 03a06e1] auto-update: curtailment data 15-May-2026 04:11
+ 19 files changed, 1467 insertions(+), 468 deletions(-)
+ create mode 100644 auto_push.log
+ create mode 100644 auto_push.py
+ create mode 100644 curtailment_history.csv
+ delete mode 100644 latest_report.csv
+ delete mode 100644 scripts/fetch_data.py
+ delete mode 100644 scripts/update_dashboard.py
+ create mode 100644 test_pdf.py
+ create mode 100644 updater.py
+ create mode 100644 vre_reports/04.05.2026_NLDC_REMC_REPORT_604.pdf
+ create mode 100644 vre_reports/05.05.2026_NLDC_REMC_REPORT_792.pdf
+ create mode 100644 vre_reports/06.05.2026_NLDC_REMC_REPORT_224.pdf
+ create mode 100644 vre_reports/07.05.2026_NLDC_REMC_REPORT_433.pdf
+ create mode 100644 vre_reports/08.05.2026_NLDC_REMC_REPORT_120.pdf
+ create mode 100644 vre_reports/09.05.2026_NLDC_REMC_REPORT_375.pdf
+ create mode 100644 vre_reports/10.05.2026_NLDC_REMC_REPORT_225.pdf
+ create mode 100644 vre_reports/11.05.2026_NLDC_REMC_REPORT_187.pdf
+ create mode 100644 vre_reports/13.05.2026_NLDC_REMC_REPORT_565.pdf
+2026-05-15 04:11:17  INFO  Git push ...
+2026-05-15 04:11:47  INFO  To https://github.com/SANKETIK-SANKHYAKI/Renewable-Energy-Curtailment-Tracker.git
+   0649d2d..03a06e1  main -> main
+2026-05-15 04:11:47  INFO  \u2705 SUCCESS — Dashboard updated and pushed to GitHub!
+2026-05-15 04:11:47  INFO  ==================================================

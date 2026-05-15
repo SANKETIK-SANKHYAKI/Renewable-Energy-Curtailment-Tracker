@@ -190,23 +190,23 @@
 <div class="stats-bar">
   <div class="stat-item">
     <div class="stat-label">Tracking Period</div>
-    <div class="stat-val">10 Days</div>
-    <div class="stat-sub">04-May-26 → 13-May-26</div>
+    <div class="stat-val">43 Days</div>
+    <div class="stat-sub">01-Apr-26 → 13-May-26</div>
   </div>
   <div class="stat-item">
     <div class="stat-label">Total Energy Lost</div>
-    <div class="stat-val">39.12 MU</div>
+    <div class="stat-val">342.13 MU</div>
     <div class="stat-sub">Cumulative curtailment</div>
   </div>
   <div class="stat-item">
     <div class="stat-label">Daily Average</div>
-    <div class="stat-val">3.91 MU</div>
+    <div class="stat-val">7.96 MU</div>
     <div class="stat-sub">Per day average</div>
   </div>
   <div class="stat-item">
     <div class="stat-label">Highest Day</div>
-    <div class="stat-val">8.46 MU</div>
-    <div class="stat-sub">10-May-26</div>
+    <div class="stat-val">22.48 MU</div>
+    <div class="stat-sub">03-May-26</div>
   </div>
 </div>
 
@@ -248,7 +248,7 @@
   </div>
 
   <!-- ── Trend charts ── -->
-  <div class="sec-label">Trends — 10 Days</div>
+  <div class="sec-label">Trends — 43 Days</div>
   <div class="charts-grid">
     <div class="ccard">
       <div class="ctitle">Daily Curtailment — Solar + Wind Stacked (MU)</div>
@@ -448,6 +448,51 @@
           <td><strong>4.50</strong></td>
           <td>38.56</td>
         </tr>
+        <tr class="row-high">
+          <td>03-May-26</td>
+          <td>209,493</td>
+          <td>35.18%</td>
+          <td>5.86</td>
+          <td>16.62</td>
+          <td><strong>22.48</strong></td>
+          <td>121.33</td>
+        </tr>
+        <tr class="row-high">
+          <td>02-May-26</td>
+          <td>228,958</td>
+          <td>33.14%</td>
+          <td>2.06</td>
+          <td>6.94</td>
+          <td><strong>9.00</strong></td>
+          <td>22.09</td>
+        </tr>
+        <tr class="row-high">
+          <td>01-May-26</td>
+          <td>210,130</td>
+          <td>36.36%</td>
+          <td>3.40</td>
+          <td>18.57</td>
+          <td><strong>21.97</strong></td>
+          <td>119.83</td>
+        </tr>
+        <tr class="row-high">
+          <td>30-Apr-26</td>
+          <td>233,942</td>
+          <td>31.47%</td>
+          <td>1.24</td>
+          <td>7.42</td>
+          <td><strong>8.66</strong></td>
+          <td>18.14</td>
+        </tr>
+        <tr class="row-high">
+          <td>29-Apr-26</td>
+          <td>241,339</td>
+          <td>29.36%</td>
+          <td>1.75</td>
+          <td>8.72</td>
+          <td><strong>10.47</strong></td>
+          <td>0.60</td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -470,10 +515,10 @@
 </div>
 
 <script>
-const dates   = ["04-May-26", "05-May-26", "06-May-26", "07-May-26", "08-May-26", "09-May-26", "10-May-26", "11-May-26", "12-May-26", "13-May-26"];
-const windMu  = [0.06, 0.0, 0.0, 1.06, 0.15, 0.18, 1.94, 0.95, 0.41, 2.39];
-const solarMu = [4.44, 0.66, 0.0, 4.33, 1.53, 2.26, 6.52, 3.7, 2.62, 5.92];
-const vrePct  = [0.0, 28.97, 28.42, 31.67, 29.5, 29.6, 32.13, 26.84, 25.93, 22.34];
+const dates   = ["01-Apr-26", "02-Apr-26", "03-Apr-26", "04-Apr-26", "05-Apr-26", "06-Apr-26", "07-Apr-26", "08-Apr-26", "09-Apr-26", "10-Apr-26", "11-Apr-26", "12-Apr-26", "13-Apr-26", "14-Apr-26", "15-Apr-26", "16-Apr-26", "17-Apr-26", "18-Apr-26", "19-Apr-26", "20-Apr-26", "21-Apr-26", "22-Apr-26", "23-Apr-26", "24-Apr-26", "25-Apr-26", "26-Apr-26", "27-Apr-26", "28-Apr-26", "29-Apr-26", "30-Apr-26", "01-May-26", "02-May-26", "03-May-26", "04-May-26", "05-May-26", "06-May-26", "07-May-26", "08-May-26", "09-May-26", "10-May-26", "11-May-26", "12-May-26", "13-May-26"];
+const windMu  = [0.04, 0.74, 0.0, 0.0, 0.44, 1.55, 4.93, 2.96, 0.11, 1.74, 0.21, 0.23, 0.05, 1.37, 0.49, 0.0, 1.5, 0.0, 1.13, 0.1, 1.62, 0.9, 0.24, 0.5, 0.0, 1.53, 1.44, 1.92, 1.75, 1.24, 3.4, 2.06, 5.86, 0.06, 0.0, 0.0, 1.06, 0.15, 0.18, 1.94, 0.95, 0.41, 2.39];
+const solarMu = [5.95, 5.54, 0.0, 0.86, 9.22, 10.01, 12.13, 14.73, 11.65, 14.05, 8.6, 14.81, 5.72, 6.33, 7.53, 4.42, 8.38, 3.95, 6.47, 4.3, 8.31, 11.82, 5.95, 3.14, 0.42, 6.77, 7.27, 6.36, 8.72, 7.42, 18.57, 6.94, 16.62, 4.44, 0.66, 0.0, 4.33, 1.53, 2.26, 6.52, 3.7, 2.62, 5.92];
+const vrePct  = [25.36, 31.45, 29.2, 28.87, 34.88, 36.56, 32.85, 37.46, 34.57, 34.46, 30.32, 34.95, 34.46, 33.79, 29.93, 26.79, 27.3, 27.95, 31.09, 27.85, 27.05, 29.42, 28.17, 25.64, 23.86, 28.1, 27.68, 27.65, 29.36, 31.47, 36.36, 33.14, 35.18, 0.0, 28.97, 28.42, 31.67, 29.5, 29.6, 32.13, 26.84, 25.93, 22.34];
 const gc = 'rgba(0,0,0,0.05)';
 const f  = {family:'DM Sans',size:12};
 const m  = {family:'DM Mono',size:11};
