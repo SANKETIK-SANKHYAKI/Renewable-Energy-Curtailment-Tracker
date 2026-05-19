@@ -1061,3 +1061,7 @@ Traceback (most recent call last):
            ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 24: character maps to <undefined>
 2026-05-17 14:13:40  INFO  ERROR: updater.py failed. Check above output.
+2026-05-17 14:30:07  INFO  ==================================================
+2026-05-17 14:30:07  INFO  auto_push.py started
+2026-05-17 14:30:07  INFO  No new PDFs since last run — skipping.
+2026-05-17 14:30:07  INFO  Done — no action needed.
